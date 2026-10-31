@@ -1,0 +1,18 @@
+{
+  "experiment_runs": 55,
+  "production_days": 825,
+  "chart_subgroups": 17459,
+  "quality_records": 184503,
+  "baseline_individuals": 600,
+  "duplicate_output_pairs": 0,
+  "signal_count_mismatches": 0,
+  "timestamp_mismatches": 0,
+  "max_budget_deviation_percent": 2.666666666666684,
+  "physical_policies": 13,
+  "experimental_cells": 15,
+  "notebook_code_cells_executed": 6,
+  "notebook_cell_errors": 0,
+  "focused_tests_passed": 5,
+  "independent_cost_recalculation": "passed",
+  "exact_cost_region_check": "passed"
+}

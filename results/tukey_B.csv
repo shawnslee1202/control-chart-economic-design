@@ -1,0 +1,4 @@
+group1,group2,meandiff,p-adj,lower,upper,reject
+B-L2.5,B-L3,4.56,0.0594,-0.1749,9.2949,False
+B-L2.5,B-L3.5,2.52,0.3621,-2.2149,7.2549,False
+B-L3,B-L3.5,-2.04,0.5038,-6.7749,2.6949,False

@@ -1,0 +1,10 @@
+scenario,ratio,winner,cost
+zero_false_alarm_cost,2,n8-h2592-L2.5-R,257.7066666666667
+zero_false_alarm_cost,10,n8-h2592-L2.5-R,789.2800000000001
+zero_false_alarm_cost,50,n8-h2592-L2.5-R,3447.146666666667
+all_signals_charged,2,n8-h2592-L3.5-S,258.32
+all_signals_charged,10,n8-h2592-L2.5-R,793.28
+all_signals_charged,50,n8-h2592-L2.5-R,3451.146666666667
+all_in_control_model,2,n8-h2592-L3.5-S,258.5529392511409
+all_in_control_model,10,n8-h2592-L2.5-R,795.6469768473625
+all_in_control_model,50,n8-h2592-L2.5-R,3453.5136435140294

@@ -1,0 +1,57 @@
+{
+  "runs": 55,
+  "plans": 15,
+  "best_base_cost": "n8-h2592-L2.5-R",
+  "cost_regions": [
+    {
+      "ratio_low": 2.0,
+      "ratio_high": 4.733021912320905,
+      "winner": "n8-h2592-L3.5-S"
+    },
+    {
+      "ratio_low": 4.733021912320905,
+      "ratio_high": 50.0,
+      "winner": "n8-h2592-L2.5-R"
+    }
+  ],
+  "tests": [
+    {
+      "experiment": "A160",
+      "n_runs": 15,
+      "F": 1.9687720536344413,
+      "p_anova": 0.17550534348565636,
+      "p_kruskal": 0.2038362183277249,
+      "p_shapiro_residuals": 0.39955295623668574,
+      "p_levene": 0.8784452813977954
+    },
+    {
+      "experiment": "A80",
+      "n_runs": 12,
+      "F": 3.95733800862006,
+      "p_anova": 0.05316168413094187,
+      "p_kruskal": 0.0922251223248706,
+      "p_shapiro_residuals": 0.5372563857390554,
+      "p_levene": 0.8770367717730805
+    },
+    {
+      "experiment": "B",
+      "n_runs": 15,
+      "F": 3.312839808108364,
+      "p_anova": 0.07151789222778353,
+      "p_kruskal": 0.11417761691083628,
+      "p_shapiro_residuals": 0.8953558557259133,
+      "p_levene": 0.5474735030860247
+    },
+    {
+      "experiment": "C",
+      "n_runs": 10,
+      "F": 4.519960435212698,
+      "p_anova": 0.06620191985724898,
+      "p_kruskal": 0.11718508719813842,
+      "p_shapiro_residuals": 0.6040388356699733,
+      "p_levene": 0.9343041522328579
+    }
+  ],
+  "signals": 52,
+  "sustained_shift_signals": 0
+}

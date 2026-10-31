@@ -1,0 +1,14 @@
+plan,signals,expected_if_always_in_control,poisson_95_low,poisson_95_high,interpretation
+n10-h1440-L3-S,1,1.9465529616105945,0.0,5.0,reference only; true in-control exposure unknown
+n2-h288-L3-S,13,9.962247473430088,4.0,17.0,reference only; true in-control exposure unknown
+n2-h648-L3-S,2,4.978423940651784,1.0,10.0,reference only; true in-control exposure unknown
+n4-h1296-L3-S,0,2.4703133978830705,0.0,6.0,reference only; true in-control exposure unknown
+n4-h576-L3-S,3,4.92172822332332,1.0,10.0,reference only; true in-control exposure unknown
+n5-h1620-L3-S,0,1.968151330116676,0.0,5.0,reference only; true in-control exposure unknown
+n5-h720-L3-S,5,3.90660490353749,1.0,8.0,reference only; true in-control exposure unknown
+n5-h960-L3-S,2,3.1182644530655157,0.0,7.0,reference only; true in-control exposure unknown
+n8-h1152-L3-S,2,2.432516252997428,0.0,6.0,reference only; true in-control exposure unknown
+n8-h2592-L2.5-R,6,9.550465271043691,4.0,16.0,reference only; true in-control exposure unknown
+n8-h2592-L2.5-S,13,18.728350622540816,11.0,28.0,reference only; true in-control exposure unknown
+n8-h2592-L3-S,5,3.255954052291785,0.0,7.0,reference only; true in-control exposure unknown
+n8-h2592-L3.5-S,0,0.34940887671135856,0.0,2.0,reference only; true in-control exposure unknown

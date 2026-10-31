@@ -1,0 +1,68 @@
+[
+  {
+    "run_id": "C_Snapshot_r3",
+    "plan": "C-Snapshot",
+    "n": 8,
+    "h": 2592,
+    "L": 2.5,
+    "method": "Snapshot",
+    "replicate": 3,
+    "experiment": "C",
+    "budget_target": 80
+  },
+  {
+    "run_id": "C_Snapshot_r1",
+    "plan": "C-Snapshot",
+    "n": 8,
+    "h": 2592,
+    "L": 2.5,
+    "method": "Snapshot",
+    "replicate": 1,
+    "experiment": "C",
+    "budget_target": 80
+  },
+  {
+    "run_id": "C_Random_r1",
+    "plan": "C-Random",
+    "n": 8,
+    "h": 2592,
+    "L": 2.5,
+    "method": "Random",
+    "replicate": 1,
+    "experiment": "C",
+    "budget_target": 80
+  },
+  {
+    "run_id": "C_Random_r2",
+    "plan": "C-Random",
+    "n": 8,
+    "h": 2592,
+    "L": 2.5,
+    "method": "Random",
+    "replicate": 2,
+    "experiment": "C",
+    "budget_target": 80
+  },
+  {
+    "run_id": "C_Snapshot_r2",
+    "plan": "C-Snapshot",
+    "n": 8,
+    "h": 2592,
+    "L": 2.5,
+    "method": "Snapshot",
+    "replicate": 2,
+    "experiment": "C",
+    "budget_target": 80
+  },
+  {
+    "run_id": "C_Random_r3",
+    "plan": "C-Random",
+    "n": 8,
+    "h": 2592,
+    "L": 2.5,
+    "method": "Random",
+    "replicate": 3,
+    "experiment": "C",
+    "budget_target": 80
+  }
+]

@@ -1,0 +1,19 @@
+{
+  "run_id": "A160_n10_r3",
+  "plan": "A160-n10",
+  "n": 10,
+  "h": 1440,
+  "L": 3,
+  "method": "Snapshot",
+  "replicate": 3,
+  "experiment": "A160",
+  "budget_target": 160,
+  "mu": 0.050474066666666643,
+  "sigma": 0.0005221768538212572,
+  "days": 15,
+  "access": "guest",
+  "captured_at": "2026-10-26T23:10:37.944Z",
+  "target": "Base-Snap Point Opening",
+  "source": "https://qualityengineering.utrgv.edu/SPCLabTwo_2023",
+  "raw_format": "complete visible HTML tables transcribed to JSON"
+}

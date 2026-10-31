@@ -1,0 +1,19 @@
+{
+  "run_id": "B_L2.5_r3",
+  "plan": "B-L2.5",
+  "n": 8,
+  "h": 2592,
+  "L": 2.5,
+  "method": "Snapshot",
+  "replicate": 3,
+  "experiment": "B",
+  "budget_target": 80,
+  "mu": 0.050474066666666643,
+  "sigma": 0.0005221768538212572,
+  "days": 15,
+  "access": "guest",
+  "captured_at": "2026-10-27T03:18:04.845Z",
+  "target": "Base-Snap Point Opening",
+  "source": "https://qualityengineering.utrgv.edu/SPCLabTwo_2023",
+  "raw_format": "complete visible HTML tables transcribed to JSON"
+}
