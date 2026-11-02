@@ -36,6 +36,7 @@ Python 3.12 was used. In a fresh virtual environment:
 ```text
 python -m pip install -r requirements.txt
 python -m unittest discover -s tests
+git restore --source=a1e31c7828b81ecd1dc962218af8429ab3c2d87b --worktree -- runs/
 python -m control_chart_economic_design.analysis.analyze
 python -m control_chart_economic_design.analysis.supplement
 python -m control_chart_economic_design.validation.verify_deliverables
@@ -67,3 +68,5 @@ The stages contain 27 allocation runs, three reference runs, 15 width runs and t
 The online simulator has no m field. The approximate 80/160-unit targets were calibrated for collection time; actual allocation effort differs from target by at most 2.67%. The Phase 1 200-unit course cap is not silently treated as a verified Phase 2 cap. The collection helper uses the Codex browser API and is not a standalone Playwright CLI; it never stores login identifiers.
 
 Prepared with Codex assistance from simulator captures and the user-supplied reports. The archived notebook has six executed code cells and no cell errors.
+
+Raw data and pilot captures are preserved in the [original snapshot](https://github.com/shawnslee1202/control-chart-economic-design/tree/a1e31c7828b81ecd1dc962218af8429ab3c2d87b). See [operations](docs/OPERATIONS.md) for restoration instructions.

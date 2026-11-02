@@ -18,3 +18,11 @@ Checked through the public UTRGV SPC Lab Two interface on October 26, 2026.
 | Login replication | Distinct production+chart hashes for all 55 experimental runs. | Confirms different outputs; hidden random seeds mean independence is assumed, not proven. |
 
 A first incomplete extraction and three 2,000-row-truncated quality captures were quarantined and excluded. The corrected collector waits for the final export control and reads all rows in 400-row chunks, verifying captured row count against the visible table count. These files are table transcriptions, not original Excel downloads.
+
+## Reproduce from the archived observations
+
+The [original data snapshot](https://github.com/shawnslee1202/control-chart-economic-design/tree/a1e31c7828b81ecd1dc962218af8429ab3c2d87b/runs) contains the three baselines and every experimental capture. From a full clone, restore the inputs with:
+
+    git restore --source=a1e31c7828b81ecd1dc962218af8429ab3c2d87b --worktree -- runs/
+
+The raw files stay on disk and Git ignores them. The analysis regenerates individual signal records, daily production records and raw checksums. The [collection schedule](../control_chart_economic_design/collection/schedule.json) lists the settings in collection order.

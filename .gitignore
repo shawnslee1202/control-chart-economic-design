@@ -2,3 +2,25 @@ __pycache__/
 .ipynb_checkpoints/
 .venv/
 *.pyc
+
+# Archived inputs and generated record-level exports
+/runs/
+/excluded/
+/stage0/
+/collection/
+/experiment_manifest.json
+/results/raw_sha256.json
+/results/daily_production.csv
+/results/signal_events.csv
+*.parquet
+*.sqlite*
+*.duckdb
+.env
+.env.*
+venv/
+.pytest_cache/
+.ruff_cache/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
