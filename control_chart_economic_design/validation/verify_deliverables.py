@@ -2,7 +2,7 @@ from pathlib import Path
 import json
 import pandas as pd
 import numpy as np
-r=Path(__file__).resolve().parent
+r=Path(__file__).resolve().parents[2]
 d=pd.read_csv(r/'results/run_table.csv')
 assert len(d)==55
 assert d.groupby('experiment').size().to_dict()=={'A160':15,'A80':12,'B':15,'C':10,'Default':3}

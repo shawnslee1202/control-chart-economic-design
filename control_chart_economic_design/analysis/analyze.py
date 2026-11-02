@@ -1,5 +1,5 @@
 """Rebuild all empirical tables, tests, uncertainty, and economic maps.
-Run from repository root: python analyze.py
+Run from repository root: python -m control_chart_economic_design.analysis.analyze
 """
 from pathlib import Path
 import json, itertools, hashlib, sys
@@ -10,8 +10,8 @@ from statsmodels.stats.multicomp import pairwise_tukeyhsd
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-from parse_run import parse_run
-ROOT=Path(__file__).resolve().parent
+from control_chart_economic_design.data.parse_run import parse_run
+ROOT=Path(__file__).resolve().parents[2]
 OUT=ROOT/'results';OUT.mkdir(exist_ok=True)
 FIG=ROOT/'figures';FIG.mkdir(exist_ok=True)
 RNG=np.random.default_rng(3502026)
@@ -57,6 +57,20 @@ def tests(df):
     pd.DataFrame(rows).to_csv(OUT/'tests.csv',index=False);pd.DataFrame(pairs).to_csv(OUT/'pairwise_welch.csv',index=False)
     return rows
 
+def cost_regions(g):
+    breaks=[1.,25.]
+    for i,j in itertools.combinations(range(len(g)),2):
+        b1,b2=g.iloc[i].bad_per_day,g.iloc[j].bad_per_day
+        if b1!=b2:
+            x=(g.iloc[j].cost_intercept-g.iloc[i].cost_intercept)/(b1-b2)
+            if 1<x<25:breaks.append(float(x))
+    breaks=sorted(set(breaks));regions=[]
+    for lo,hi in zip(breaks,breaks[1:]):
+        k=(g.cost_intercept+(lo+hi)/2*g.bad_per_day).idxmin()
+        if regions and regions[-1]['winner']==k:regions[-1]['ratio_high']=hi/.5
+        else:regions.append(dict(ratio_low=lo/.5,ratio_high=hi/.5,winner=k))
+    return regions
+
 def economics(df):
     # Expected all-in-control false alarms is a transparent conservative exposure
     # approximation, NOT a measured false-alarm count. Sensitivities cover 0 and
@@ -71,17 +85,7 @@ def economics(df):
     mp=pd.DataFrame({'ratio_bad_to_unit':ratios,'c_bad':.5*ratios,'winner':names[winners],'cost_per_day':cost.min(axis=0)})
     mp.to_csv(OUT/'cost_map.csv',index=False)
     # Exact lower-envelope segments, including narrow regions grid might miss.
-    breaks=[1.,25.]
-    for i,j in itertools.combinations(range(len(g)),2):
-        b1,b2=g.iloc[i].bad_per_day,g.iloc[j].bad_per_day
-        if b1!=b2:
-            x=(g.iloc[j].cost_intercept-g.iloc[i].cost_intercept)/(b1-b2)
-            if 1<x<25:breaks.append(float(x))
-    breaks=sorted(set(breaks));regions=[]
-    for lo,hi in zip(breaks,breaks[1:]):
-        k=(g.cost_intercept+(lo+hi)/2*g.bad_per_day).idxmin()
-        if regions and regions[-1]['winner']==k:regions[-1]['ratio_high']=hi/.5
-        else:regions.append(dict(ratio_low=lo/.5,ratio_high=hi/.5,winner=k))
+    regions=cost_regions(g)
     pd.DataFrame(regions).to_csv(OUT/'cost_regions_exact.csv',index=False)
     # Run-level resampling respects within-run daily dependence.
     boot=[]
@@ -129,20 +133,7 @@ def empirical_plots(df):
         ax[0].plot(g.index,g.signals,'o-');ax[0].plot(g.index,g.expected_FA_all_in_control,'s--',label='All-in-control expectation');ax[0].legend(fontsize=8)
         ax[1].plot(g.index,g.bad_per_day,'o-');ax[0].set(xlabel='Limit width L',ylabel='Signals per 15-day run');ax[1].set(xlabel='Limit width L',ylabel='Bad parts / day');fig.tight_layout();savefig('limit_width')
 
-def theory(df,events):
-    rows=[]
-    for _,r in df.groupby('plan').mean(numeric_only=True).iterrows():
-        for delta in [.25,.5,1.,1.5,2.,3.]:
-            a=arl(r.n,r.L,delta)
-            rows.append(dict(n=r.n,L=r.L,h_effective=r.effective_h_seconds,delta=delta,ARL1=a,delay_uniform_minutes=(a-.5)*r.effective_h_seconds/60,delay_after_sample_minutes=a*r.effective_h_seconds/60))
-    pd.DataFrame(rows).to_csv(OUT/'arl_sensitivity.csv',index=False)
-    fig,ax=plt.subplots(figsize=(8,4))
-    delta=np.linspace(.2,3,120)
-    for n in [2,4,5,8,10]:ax.plot(delta,(arl(n,3,delta)-.5)*(28800*n/160)/60,label=f'n = {n}')
-    ax.set(yscale='log',xlabel='Persistent mean shift (individual standard deviations)',ylabel='Expected delay (working minutes)',title='ARL prediction at exactly 160 inspected units/day');ax.legend(ncol=5);fig.tight_layout();savefig('arl_theory')
-    # Explicit reduced Duncan-style renewal model, not the full textbook model.
-    # In-control duration Exp(lambda); instantaneous correction; uniform onset.
-    # Cycle = 1/lambda + D; expected FA/cycle = alpha/(lambda*h).
+def renewal_sensitivity():
     candidates=[]
     for n in range(2,11):
         for budget in [40,80,120,160,200]:
@@ -159,6 +150,22 @@ def theory(df,events):
         j=int(np.argmin(vals));n,budget,h,L=candidates[j]
         renewal.append(dict(delta=delta,shifts_per_in_control_day=lam,excess_bad_per_out_of_control_day=excess,ratio=ratio,n=n,budget=budget,h=h,L=L,incremental_cost=vals[j]))
     pd.DataFrame(renewal).to_csv(OUT/'renewal_sensitivity.csv',index=False)
+
+def theory(df,events):
+    rows=[]
+    for _,r in df.groupby('plan').mean(numeric_only=True).iterrows():
+        for delta in [.25,.5,1.,1.5,2.,3.]:
+            a=arl(r.n,r.L,delta)
+            rows.append(dict(n=r.n,L=r.L,h_effective=r.effective_h_seconds,delta=delta,ARL1=a,delay_uniform_minutes=(a-.5)*r.effective_h_seconds/60,delay_after_sample_minutes=a*r.effective_h_seconds/60))
+    pd.DataFrame(rows).to_csv(OUT/'arl_sensitivity.csv',index=False)
+    fig,ax=plt.subplots(figsize=(8,4))
+    delta=np.linspace(.2,3,120)
+    for n in [2,4,5,8,10]:ax.plot(delta,(arl(n,3,delta)-.5)*(28800*n/160)/60,label=f'n = {n}')
+    ax.set(yscale='log',xlabel='Persistent mean shift (individual standard deviations)',ylabel='Expected delay (working minutes)',title='ARL prediction at exactly 160 inspected units/day');ax.legend(ncol=5);fig.tight_layout();savefig('arl_theory')
+    # Explicit reduced Duncan-style renewal model, not the full textbook model.
+    # In-control duration Exp(lambda); instantaneous correction; uniform onset.
+    # Cycle = 1/lambda + D; expected FA/cycle = alpha/(lambda*h).
+    renewal_sensitivity()
     if len(events):
         e=events[events.classification=='sustained-shift evidence'].copy()
         if len(e):

@@ -6,7 +6,7 @@ from reportlab.platypus import SimpleDocTemplate,Paragraph,Spacer,Image,Table,Ta
 from reportlab.lib.styles import getSampleStyleSheet,ParagraphStyle
 from reportlab.lib import colors
 from reportlab.lib.enums import TA_LEFT
-ROOT=Path(__file__).resolve().parent
+ROOT=Path(__file__).resolve().parents[2]
 
 def build():
     summary=json.loads((ROOT/'results/summary.json').read_text())
@@ -41,7 +41,7 @@ def build():
     h('Limitations and interpretation')
     p('The simulator is a teaching model with corrective-only actions. Guest and registered plant profiles must not be pooled. Every new login produces distinct data, but hidden seeds prevent verification of independence. Actual subgroup intervals vary and timestamp labels have calendar/DST inconsistencies. Onset estimates can miss short shifts and are censored; empirical false alarms are not identifiable. Costs are assumptions. Shared baseline uncertainty and sequential selection are not fully included in the bootstrap. Fifteen-day runs and three-to-five replications per cell can leave close alternatives unresolved. No real-plant savings are claimed.')
     p('Historical audit: the visible Phase 1 chart limits differ from the Lab 7 text; its off-spec comparison table duplicates bad-parts statistics. The 150 appendix values reproduce the text limits, so the figure is inconsistent with those values; actual online inputs remain unverified.')
-    p('<font size="7.5">Sources: user-supplied ISEN 350 Lab 6 and Lab 7 reports/instructions; UTRGV Mouse Factory course and simulator pages; NIST/SEMATECH, Cusum Average Run Length (Shewhart ARL calculation); Montgomery (1982), Journal of Quality Technology 14(1), 40-43, doi:10.1080/00224065.1982.11978782 (abstract). Full links and methods are in methods.md.</font>')
+    p('<font size="7.5">Sources: user-supplied ISEN 350 Lab 6 and Lab 7 reports/instructions; UTRGV Mouse Factory course and simulator pages; NIST/SEMATECH, Cusum Average Run Length (Shewhart ARL calculation); Montgomery (1982), Journal of Quality Technology 14(1), 40-43, doi:10.1080/00224065.1982.11978782 (abstract). Full links and methods are in docs/METHODS.md.</font>')
     def footer(c,doc):
         c.setStrokeColor(colors.HexColor('#d8e1e8'));c.line(42,36,570,36);c.setFont('Helvetica',8);c.setFillColor(colors.HexColor('#65758b'));c.drawString(42,24,'Simulator evidence | Reproducible economic-design study');c.drawRightString(570,24,str(doc.page))
     doc=SimpleDocTemplate(str(ROOT/'project_brief.pdf'),pagesize=(612,792),rightMargin=54,leftMargin=54,topMargin=40,bottomMargin=46)

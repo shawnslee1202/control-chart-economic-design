@@ -15,11 +15,11 @@ Registered access could not be established using the supplied identifier or the 
 ## Read first
 
 - [Two-page project brief](project_brief.pdf)
-- [Answers to the project questions](findings.md)
+- [Answers to the project questions](docs/FINDINGS.md)
 - [Executed analysis notebook](analysis.ipynb)
-- [Methods, assumptions and references](methods.md)
-- [Corrected original-lab audit](original_lab_audit.md)
-- [Resume bullets](resume_bullets.md)
+- [Methods, assumptions and references](docs/METHODS.md)
+- [Corrected original-lab audit](docs/original_lab_audit.md)
+- [Resume bullets](docs/resume_bullets.md)
 
 ![Quality versus actual inspection effort](figures/quality_effort.png)
 
@@ -35,14 +35,14 @@ Python 3.12 was used. In a fresh virtual environment:
 
 ```text
 python -m pip install -r requirements.txt
-python -m unittest test_analysis.py
-python analyze.py
-python supplement.py
-python verify_deliverables.py
-python build_report.py
+python -m unittest discover -s tests
+python -m control_chart_economic_design.analysis.analyze
+python -m control_chart_economic_design.analysis.supplement
+python -m control_chart_economic_design.validation.verify_deliverables
+python -m control_chart_economic_design.reporting.build_report
 ```
 
-Open `analysis.ipynb` in Jupyter to explore the outputs. The notebook rebuilds the analysis from saved captures; collection is separate. `audit_original.py` recalculates the old Phase 1 limits when given the original Lab 7 PDF. Original private PDFs are not redistributed.
+Open `analysis.ipynb` in Jupyter to explore the outputs. The notebook rebuilds the analysis from saved captures; collection is separate. `control_chart_economic_design/validation/audit_original.py` recalculates the old Phase 1 limits when given the original Lab 7 PDF. Original private PDFs are not redistributed.
 
 ## Files
 
@@ -53,8 +53,8 @@ Open `analysis.ipynb` in Jupyter to explore the outputs. The notebook rebuilds t
 | `stage0/` | Schedule and sampling-method checks |
 | `excluded/` | Incomplete early captures, explicitly excluded from all experiment statistics |
 | `collection/` | Exact randomized schedules and the Codex browser collection helper |
-| `parse_run.py` | Strict table/horizon/limit validation, signal matching and onset screening |
-| `analyze.py`, `supplement.py` | Reproducible statistics, economics, uncertainty and theory |
+| `control_chart_economic_design/data/parse_run.py` | Strict table/horizon/limit validation, signal matching and onset screening |
+| `control_chart_economic_design/analysis/analyze.py`, `control_chart_economic_design/analysis/supplement.py` | Reproducible statistics, economics, uncertainty and theory |
 | `results/run_table.csv` | One row per 15-day experimental replication |
 | `results/plan_summary.csv` | Physical-policy means; identical designs pooled across stages |
 | `results/cost_regions_exact.csv` | Exact affine cost intersections |

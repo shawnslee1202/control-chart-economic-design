@@ -1,5 +1,5 @@
 """Parse complete visible simulator tables. Raw JSON retains original row order.
-Usage: python parse_run.py runs/RUN_ID
+Usage: python -m control_chart_economic_design.data.parse_run runs/RUN_ID
 """
 from pathlib import Path
 import json, re, argparse
