@@ -26,3 +26,5 @@ The [original data snapshot](https://github.com/shawnslee1202/control-chart-econ
     git restore --source=a1e31c7828b81ecd1dc962218af8429ab3c2d87b --worktree -- runs/
 
 The raw files stay on disk and Git ignores them. The analysis regenerates individual signal records, daily production records and raw checksums. The [collection schedule](../control_chart_economic_design/collection/schedule.json) lists the settings in collection order.
+
+The 55 experimental runs contained 17,459 subgroup observations and 184,503 quality records. Each run covered 15 working days. The signal counts and timestamps matched in every run, and no two runs had identical production and chart outputs. The executed notebook contains six code cells. See the [verification summary](../results/verification_summary.json).
